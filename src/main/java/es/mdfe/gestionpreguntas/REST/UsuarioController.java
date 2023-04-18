@@ -69,7 +69,7 @@ public class UsuarioController {
 			usr.setRole(model.getRole());
 			return repositorio.save(usr);
 		})
-		.orElseThrow(() -> new RegisterNotFoundException(id, "pedido"));
+		.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
 		log.info("Actualizado " + usuario);
 		return assembler.toModel(usuario);
 	}
