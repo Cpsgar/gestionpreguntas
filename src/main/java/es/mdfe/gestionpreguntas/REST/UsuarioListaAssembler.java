@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 
+@Component
 public class UsuarioListaAssembler implements RepresentationModelAssembler<Usuario, UsuarioListaModel>{
 
 	@Override
