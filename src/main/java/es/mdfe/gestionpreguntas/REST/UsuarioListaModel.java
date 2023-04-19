@@ -30,6 +30,9 @@ public class UsuarioListaModel extends RepresentationModel<UsuarioListaModel> {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
+	@Override
+	public String toString() {
+		return "UsuarioListaModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", role=" + role + "]";
+	}
 	
 }

@@ -18,9 +18,9 @@ public class UsuarioListaAssembler implements RepresentationModelAssembler<Usuar
 	@Override
 	public UsuarioListaModel toModel(Usuario entity) {
 		UsuarioListaModel model = new UsuarioListaModel();
-		model.setNombre(model.getNombre());
-		model.setNombreUsuario(model.getNombreUsuario());
-		model.setRole(model.getRole());
+		model.setNombre(entity.getNombre());
+		model.setNombreUsuario(entity.getNombreUsuario());
+		model.setRole(entity.getRole());
 		model.add(
 				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel()
 				);
@@ -32,7 +32,7 @@ public class UsuarioListaAssembler implements RepresentationModelAssembler<Usuar
 				lista.stream().map(this::toModel).collect(Collectors.toList())
 				);
 		collection.add(
-				linkTo(methodOn(UsuarioController.class).all()).withRel("pedidos")
+				linkTo(methodOn(UsuarioController.class).all()).withRel("usuarios")
 				);
 		return collection;
 	}
