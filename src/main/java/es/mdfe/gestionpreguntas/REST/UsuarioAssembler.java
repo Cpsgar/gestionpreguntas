@@ -7,6 +7,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import es.mdfe.gestionpreguntas.entidades.Administrador;
+import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 
 @Component
@@ -25,11 +27,25 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 	}
 	
 	public Usuario toEntity(UsuarioPostModel model) {
-		Usuario usuario = new Usuario();
+		Usuario usuario;
+		switch (model.getRole()) {
+		case Administrador: {
+			Administrador administrador = new Administrador();
+			administrador.setTelefono(model.getTelefono());
+			usuario = administrador;
+		}
+		case NoAdministrador:{
+			NoAdministrador noAdministrador = new NoAdministrador();
+			noAdministrador.setDepartamento(model.getDepartamento());
+			noAdministrador.setTipo(model.getTipo());
+		}
+		default: {
+			usuario = new Usuario();
+		}
+		}
 		usuario.setNombre(model.getNombre());
 		usuario.setNombreUsuario(model.getNombreUsuario());
 		usuario.setContraseña(model.getContraseña());
-		usuario.setRole(model.getRole());
 		return usuario;
 	}
 	

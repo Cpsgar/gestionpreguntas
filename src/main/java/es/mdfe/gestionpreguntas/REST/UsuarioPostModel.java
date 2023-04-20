@@ -3,6 +3,8 @@ package es.mdfe.gestionpreguntas.REST;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
+import es.mdfe.gestionpreguntas.entidades.NoAdministrador.Departamento;
+import es.mdfe.gestionpreguntas.entidades.NoAdministrador.Tipo;
 import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 
 @Relation(itemRelation = "usuario")
@@ -10,6 +12,9 @@ public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 	private String nombre;
 	private String nombreUsuario;
 	private String contraseña;
+	private Departamento departamento;
+	private Tipo tipo;
+	private String telefono;
 	private Role role;
 	
 	public String getNombre() {
@@ -35,6 +40,25 @@ public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 	}
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+	public Tipo getTipo() {
+		return tipo;
+	}
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	@Override
 	public String toString() {

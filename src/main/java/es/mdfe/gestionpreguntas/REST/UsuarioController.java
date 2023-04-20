@@ -55,6 +55,8 @@ public class UsuarioController {
 
 	@PostMapping
 	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
+		
+		
 		Usuario usuario = repositorio.save(assembler.toEntity(model));
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);
