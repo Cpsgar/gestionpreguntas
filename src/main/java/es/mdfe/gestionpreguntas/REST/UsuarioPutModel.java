@@ -6,7 +6,7 @@ import org.springframework.hateoas.server.core.Relation;
 import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 
 @Relation(itemRelation = "usuario")
-public class UsuarioModel extends RepresentationModel<UsuarioModel> {
+public class UsuarioPutModel extends RepresentationModel<UsuarioPutModel> {
 	private String nombre;
 	private String nombreUsuario;
 	private Role role;
@@ -34,5 +34,4 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 		return "UsuarioModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", role=" + role + "]";
 	}
 
-	
 }

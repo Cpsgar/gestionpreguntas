@@ -2,7 +2,6 @@ package es.mdfe.gestionpreguntas.REST;
 
 import org.slf4j.Logger;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +33,7 @@ public class UsuarioController {
 	}
 
 	@GetMapping("{id}")
-	public EntityModel<Usuario> one(@PathVariable Long id) {
+	public UsuarioModel one(@PathVariable Long id) {
 		Usuario usuario = repositorio.findById(id).
 				orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
 		log.info("Recuperado " + usuario);
@@ -55,14 +54,14 @@ public class UsuarioController {
 	
 
 	@PostMapping
-	public EntityModel<Usuario> add(@RequestBody UsuarioModel model) {
+	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
 		Usuario usuario = repositorio.save(assembler.toEntity(model));
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);
 	}
 	
 	@PutMapping("{id}")
-	public EntityModel<Usuario> edit(@PathVariable Long id, @RequestBody UsuarioModel model) {
+	public UsuarioModel edit(@PathVariable Long id, @RequestBody UsuarioPutModel model) {
 		Usuario usuario = repositorio.findById(id).map(usr -> {
 			usr.setNombre(model.getNombre());
 			usr.setNombreUsuario(model.getNombreUsuario());

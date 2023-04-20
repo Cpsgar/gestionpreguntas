@@ -6,9 +6,10 @@ import org.springframework.hateoas.server.core.Relation;
 import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 
 @Relation(itemRelation = "usuario")
-public class UsuarioModel extends RepresentationModel<UsuarioModel> {
+public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 	private String nombre;
 	private String nombreUsuario;
+	private String contraseña;
 	private Role role;
 	
 	public String getNombre() {
@@ -23,6 +24,12 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
+	public String getContraseña() {
+		return contraseña;
+	}
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
 	public Role getRole() {
 		return role;
 	}
@@ -31,8 +38,8 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	}
 	@Override
 	public String toString() {
-		return "UsuarioModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", role=" + role + "]";
+		return "UsuarioPostModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña
+				+ ", role=" + role + "]";
 	}
-
 	
 }
