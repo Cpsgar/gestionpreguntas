@@ -1,4 +1,4 @@
-package es.mdfe.gestionpreguntas.REST;
+package es.mdfe.gestionpreguntas.REST.models;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
@@ -11,9 +11,6 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	private String nombre;
 	private String nombreUsuario;
-	private Departamento departamento;
-	private Tipo tipo;
-	private String telefono;
 	private Role role;
 	
 	public String getNombre() {
@@ -33,30 +30,6 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	}
 	public void setRole(Role role) {
 		this.role = role;
-	}
-	
-	public Departamento getDepartamento() {
-		return departamento;
-	}
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
-	}
-	public Tipo getTipo() {
-		return tipo;
-	}
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
-	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	@Override
-	public String toString() {
-		return "UsuarioModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", departamento=" + departamento
-				+ ", tipo=" + tipo + ", telefono=" + telefono + ", role=" + role + "]";
 	}
 	
 }

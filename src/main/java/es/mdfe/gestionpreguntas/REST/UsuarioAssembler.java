@@ -7,6 +7,10 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import es.mdfe.gestionpreguntas.REST.models.AdminModel;
+import es.mdfe.gestionpreguntas.REST.models.NoAdminModel;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioModel;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioPostModel;
 import es.mdfe.gestionpreguntas.entidades.Administrador;
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
@@ -16,7 +20,23 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 
 	@Override
 	public UsuarioModel toModel(Usuario entity) {
-		UsuarioModel model = new UsuarioModel();
+		UsuarioModel model;
+		switch (entity.getRole()) {
+		case Administrador: {
+			AdminModel adminModel = new AdminModel();
+			adminModel.setTelefono(((Administrador) entity).getTelefono());
+			model = adminModel;
+		}
+		case NoAdministrador:{
+			NoAdminModel noAdminModel = new NoAdminModel();
+			noAdminModel.setDepartamento(((NoAdministrador) entity).getDepartamento());
+			noAdminModel.setTipo(((NoAdministrador) entity).getTipo());
+			model = noAdminModel;
+		}
+		default: {
+			model = new UsuarioModel();
+		}
+		}
 		model.setNombre(entity.getNombre());
 		model.setNombreUsuario(entity.getNombreUsuario());
 		model.setRole(entity.getRole());
@@ -38,6 +58,7 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 			NoAdministrador noAdministrador = new NoAdministrador();
 			noAdministrador.setDepartamento(model.getDepartamento());
 			noAdministrador.setTipo(model.getTipo());
+			usuario = noAdministrador;
 		}
 		default: {
 			usuario = new Usuario();

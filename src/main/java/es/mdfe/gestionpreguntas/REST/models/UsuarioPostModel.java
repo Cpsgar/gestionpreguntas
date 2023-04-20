@@ -1,4 +1,4 @@
-package es.mdfe.gestionpreguntas.REST;
+package es.mdfe.gestionpreguntas.REST.models;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
@@ -16,54 +16,67 @@ public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 	private Tipo tipo;
 	private String telefono;
 	private Role role;
-	
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
+
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
+
 	public String getContraseña() {
 		return contraseña;
 	}
+
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
+
 	public Role getRole() {
 		return role;
 	}
+
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
+
 	public Departamento getDepartamento() {
 		return departamento;
 	}
+
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
+
 	public Tipo getTipo() {
 		return tipo;
 	}
+
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+
 	public String getTelefono() {
 		return telefono;
 	}
+
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
 	@Override
 	public String toString() {
 		return "UsuarioPostModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña
 				+ ", role=" + role + "]";
 	}
-	
+
 }

@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioListaModel;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioModel;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioPostModel;
+import es.mdfe.gestionpreguntas.REST.models.UsuarioPutModel;
+import es.mdfe.gestionpreguntas.entidades.Administrador;
+import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 import es.mdfe.gestionpreguntas.repositorios.UsuarioRepositorio;
 
@@ -55,8 +61,6 @@ public class UsuarioController {
 
 	@PostMapping
 	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
-		
-		
 		Usuario usuario = repositorio.save(assembler.toEntity(model));
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);
@@ -65,9 +69,20 @@ public class UsuarioController {
 	@PutMapping("{id}")
 	public UsuarioModel edit(@PathVariable Long id, @RequestBody UsuarioPutModel model) {
 		Usuario usuario = repositorio.findById(id).map(usr -> {
+			switch (usr.getRole()) {
+			case Administrador: {
+				Administrador administrador = new Administrador();
+				administrador.setTelefono(model.getTelefono());
+				usr = administrador;
+			}
+			case NoAdministrador:{
+				NoAdministrador noAdministrador = new NoAdministrador();
+				noAdministrador.setDepartamento(model.getDepartamento());
+				noAdministrador.setTipo(model.getTipo());
+			}
+			}
 			usr.setNombre(model.getNombre());
 			usr.setNombreUsuario(model.getNombreUsuario());
-			usr.setRole(model.getRole());
 			return repositorio.save(usr);
 		})
 		.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));

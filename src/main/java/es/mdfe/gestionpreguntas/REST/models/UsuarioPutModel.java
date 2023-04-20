@@ -1,4 +1,4 @@
-package es.mdfe.gestionpreguntas.REST;
+package es.mdfe.gestionpreguntas.REST.models;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
