@@ -40,56 +40,55 @@ public class UsuarioController {
 
 	@GetMapping("{id}")
 	public UsuarioModel one(@PathVariable Long id) {
-		Usuario usuario = repositorio.findById(id).
-				orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
+		Usuario usuario = repositorio.findById(id).orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
 		log.info("Recuperado " + usuario);
 		return assembler.toModel(usuario);
 	}
-	
+
 	@GetMapping
-	public CollectionModel<UsuarioListaModel> all(){
+	public CollectionModel<UsuarioListaModel> all() {
 		return listaAssembler.toCollection(repositorio.findAll());
 	}
-	
+
 	@GetMapping("porNombreUsuario")
 	public CollectionModel<UsuarioListaModel> usuariosporNombreUsuario(@RequestParam String nombreUsuario) {
-		return listaAssembler.toCollection(
-				repositorio.findUsuarioByNombreUsuario(nombreUsuario)
-				);
+		return listaAssembler.toCollection(repositorio.findUsuarioByNombreUsuario(nombreUsuario));
 	}
-	
 
 	@PostMapping
 	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
-		Usuario usuario = repositorio.save(assembler.toEntity(model));
+		Usuario nuevoUsuario = assembler.toEntity(model);
+		System.out.println(nuevoUsuario.getRole());
+		Usuario usuario = repositorio.save(nuevoUsuario);
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);
 	}
-	
+
 	@PutMapping("{id}")
 	public UsuarioModel edit(@PathVariable Long id, @RequestBody UsuarioPutModel model) {
 		Usuario usuario = repositorio.findById(id).map(usr -> {
-			switch (usr.getRole()) {
-			case Administrador: {
-				Administrador administrador = new Administrador();
-				administrador.setTelefono(model.getTelefono());
-				usr = administrador;
-			}
-			case NoAdministrador:{
-				NoAdministrador noAdministrador = new NoAdministrador();
-				noAdministrador.setDepartamento(model.getDepartamento());
-				noAdministrador.setTipo(model.getTipo());
-			}
+			if (usr.getRole() == null) {
+			} else {
+				switch (usr.getRole()) {
+				case Administrador: {
+					((Administrador) usr).setTelefono(model.getTelefono());
+					break;
+				}
+				case NoAdministrador: {
+					((NoAdministrador) usr).setDepartamento(model.getDepartamento());
+					((NoAdministrador) usr).setTipo(model.getTipo());
+					break;
+				}
+				}
 			}
 			usr.setNombre(model.getNombre());
 			usr.setNombreUsuario(model.getNombreUsuario());
 			return repositorio.save(usr);
-		})
-		.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
+		}).orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
 		log.info("Actualizado " + usuario);
 		return assembler.toModel(usuario);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Long id) {
 		log.info("Borrado usuario " + id);
