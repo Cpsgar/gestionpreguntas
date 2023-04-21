@@ -57,7 +57,10 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 		model.setNombre(entity.getNombre());
 		model.setNombreUsuario(entity.getNombreUsuario());
 		model.setRole(entity.getRole());
-		model.add(linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel());
+		model.add(
+				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel(),
+				linkTo(methodOn(UsuarioController.class).preguntas(entity.getId())).withRel("preguntas")
+				);
 		return model;
 	}
 

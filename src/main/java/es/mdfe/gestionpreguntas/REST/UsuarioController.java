@@ -1,5 +1,11 @@
 package es.mdfe.gestionpreguntas.REST;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,13 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.mdef.gestionpedidos.REST.ArticuloController;
+import es.mdef.gestionpedidos.REST.PedidoListaModel;
+import es.mdef.gestionpedidos.REST.RegisterNotFoundException;
+import es.mdef.gestionpedidos.entidades.Pedido;
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
+import es.mdfe.gestionpreguntas.REST.models.PreguntaListaModel;
 import es.mdfe.gestionpreguntas.REST.models.UsuarioListaModel;
 import es.mdfe.gestionpreguntas.REST.models.UsuarioModel;
 import es.mdfe.gestionpreguntas.REST.models.UsuarioPostModel;
 import es.mdfe.gestionpreguntas.REST.models.UsuarioPutModel;
 import es.mdfe.gestionpreguntas.entidades.Administrador;
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
+import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 import es.mdfe.gestionpreguntas.repositorios.UsuarioRepositorio;
 
@@ -93,5 +105,16 @@ public class UsuarioController {
 	public void delete(@PathVariable Long id) {
 		log.info("Borrado usuario " + id);
 		repositorio.deleteById(id);
+	}
+	
+	@GetMapping("{id}/preguntas")
+	public CollectionModel<PreguntaListaModel> preguntas(@PathVariable Long id) {
+		List<Pregunta> preguntas = repositorio.findById(id)
+				.orElseThrow(() -> new RegisterNotFoundException(id, "articulo"))
+				.getPreguntas();
+		return CollectionModel.of(
+				preguntas.stream().map(pedido -> preguntaListaAssembler.toModel(pedido)).collect(Collectors.toList()),
+				linkTo(methodOn(ArticuloController.class).one(id)).slash("pedidos").withSelfRel()
+				);
 	}
 }
