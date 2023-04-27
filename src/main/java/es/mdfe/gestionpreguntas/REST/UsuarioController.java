@@ -3,7 +3,10 @@ package es.mdfe.gestionpreguntas.REST;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -20,33 +23,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaListaModel;
-import es.mdfe.gestionpreguntas.REST.models.UsuarioListaModel;
-import es.mdfe.gestionpreguntas.REST.models.UsuarioModel;
-import es.mdfe.gestionpreguntas.REST.models.UsuarioPostModel;
-import es.mdfe.gestionpreguntas.REST.models.UsuarioPutModel;
+import es.mdfe.gestionpreguntas.REST.models.familias.FamiliaListaModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaListaModel;
+import es.mdfe.gestionpreguntas.REST.models.usuarios.UsuarioListaModel;
+import es.mdfe.gestionpreguntas.REST.models.usuarios.UsuarioModel;
+import es.mdfe.gestionpreguntas.REST.models.usuarios.UsuarioPostModel;
+import es.mdfe.gestionpreguntas.REST.models.usuarios.UsuarioPutModel;
 import es.mdfe.gestionpreguntas.entidades.Administrador;
+import es.mdfe.gestionpreguntas.entidades.Familia;
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
+import es.mdfe.gestionpreguntas.repositorios.FamiliaRepositorio;
+import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.UsuarioRepositorio;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	private final UsuarioRepositorio repositorio;
+	private final PreguntaRepositorio respositorioPreguntas;
 	private final UsuarioAssembler assembler;
 	private final UsuarioListaAssembler listaAssembler;
 	private final Logger log;
-	
+	private final FamiliaListaAssembler familiaListaAssembler;
 	private final PreguntaListaAssembler preguntaListaAssembler;
 
-	UsuarioController(UsuarioRepositorio repositorio, UsuarioAssembler assembler,
-			UsuarioListaAssembler listaAssembler, PreguntaListaAssembler preguntaListaAssembler) {
+	UsuarioController(UsuarioRepositorio repositorio, PreguntaRepositorio respositorioPreguntas,
+			UsuarioAssembler assembler, UsuarioListaAssembler listaAssembler, 
+			FamiliaListaAssembler familiaListaAssembler, PreguntaListaAssembler preguntaListaAssembler) {
 		this.repositorio = repositorio;
+		this.respositorioPreguntas = respositorioPreguntas;
 		this.assembler = assembler;
 		this.listaAssembler = listaAssembler;
 		log = GestionpreguntasApplication.log;
+		this.familiaListaAssembler =familiaListaAssembler;
 		this.preguntaListaAssembler = preguntaListaAssembler;
 	}
 
@@ -116,5 +127,16 @@ public class UsuarioController {
 				preguntas.stream().map(pregunta -> preguntaListaAssembler.toModel(pregunta)).collect(Collectors.toList()),
 				linkTo(methodOn(UsuarioController.class).one(id)).slash("preguntas").withSelfRel()
 				);
+	}
+
+
+	@GetMapping({"{id}/familias"})
+	public CollectionModel<FamiliaListaModel> familias(@PathVariable long id){
+		List<Pregunta>preguntas = respositorioPreguntas.findPreguntaByUsuario(id);
+		Set<Familia>familias = new HashSet<>();
+		for (Pregunta pregunta : preguntas) {
+			familias.add(pregunta.getFamilia());
+		}
+		return familiaListaAssembler.toCollection(new ArrayList<>(familias));
 	}
 }

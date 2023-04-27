@@ -1,4 +1,4 @@
-package es.mdfe.gestionpreguntas.REST.models;
+package es.mdfe.gestionpreguntas.REST.models.usuarios;
 
 public class AdminModel extends UsuarioModel {
 	private String telefono;

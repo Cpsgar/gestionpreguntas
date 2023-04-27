@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaListaModel;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaModel;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaPostModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaListaModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaPostModel;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
 
@@ -47,10 +47,6 @@ public class PreguntaController {
 		return listaAssembler.toCollection(repositorio.findAll());
 	}
 
-	@GetMapping("porNombrePregunta")
-	public CollectionModel<PreguntaListaModel> preguntasporNombrePregunta(@RequestParam String enunciado) {
-		return listaAssembler.toCollection(repositorio.findPreguntaByEnunciado(enunciado));
-	}
 
 	@PostMapping
 	public PreguntaModel add(@RequestBody PreguntaPostModel model) {

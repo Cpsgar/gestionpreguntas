@@ -8,4 +8,6 @@ import es.mdfe.gestionpreguntas.entidades.Pregunta;
 
 public interface PreguntaRepositorio extends JpaRepository<Pregunta, Long> {
 	List<Pregunta> findPreguntaByEnunciado(String enunciado);
+	List<Pregunta> findPreguntaByFamiliaId(long id);
+	List<Pregunta> findPreguntaByUsuario(long id);
 }

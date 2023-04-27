@@ -1,4 +1,4 @@
-package es.mdfe.gestionpreguntas.REST.models;
+package es.mdfe.gestionpreguntas.REST.models.usuarios;
 
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador.Departamento;
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador.Tipo;

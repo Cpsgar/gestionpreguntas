@@ -22,6 +22,11 @@ public class Pregunta {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UsuarioId")
 	private Usuario usuario;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FamiliaId")
+	private Familia familia;
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,6 +44,12 @@ public class Pregunta {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public Familia getFamilia() {
+		return familia;
+	}
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
 	}
 	
 	

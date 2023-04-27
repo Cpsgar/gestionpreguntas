@@ -10,6 +10,10 @@ sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+	//aqui añado libreria externa
+	flatDir {
+		dirs("src/main/resources")
+	}
 }
 
 dependencies {
@@ -19,6 +23,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//añado libreria externa
+	implementation ':support'
 }
 
 tasks.named('test') {

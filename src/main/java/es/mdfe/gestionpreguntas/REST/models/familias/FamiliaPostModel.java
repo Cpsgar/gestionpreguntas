@@ -1,10 +1,11 @@
-package es.mdfe.gestionpreguntas.REST.models;
+package es.mdfe.gestionpreguntas.REST.models.familias;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
-@Relation(collectionRelation = "preguntas")
-public class PreguntaListaModel extends RepresentationModel<PreguntaListaModel> {
+@Relation(itemRelation = "familia")
+public class FamiliaPostModel extends RepresentationModel<FamiliaPostModel> {
+	
 	private String enunciado;
 	
 	public String getEnunciado() {

@@ -10,7 +10,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import es.mdfe.gestionpreguntas.REST.models.UsuarioListaModel;
+import es.mdfe.gestionpreguntas.REST.models.usuarios.UsuarioListaModel;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 
 @Component

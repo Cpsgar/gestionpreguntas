@@ -9,8 +9,8 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaModel;
-import es.mdfe.gestionpreguntas.REST.models.PreguntaPostModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaModel;
+import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaPostModel;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 
 @Component
@@ -25,7 +25,8 @@ public class PreguntaAssembler implements RepresentationModelAssembler<Pregunta,
 		model.setEnunciado(entity.getEnunciado());
 		model.add(
 				linkTo(methodOn(PreguntaController.class).one(entity.getId())).withSelfRel(),
-				linkTo(methodOn(UsuarioController.class).one(entity.getUsuario().getId())).withRel("usuario")
+				linkTo(methodOn(UsuarioController.class).one(entity.getUsuario().getId())).withRel("usuario"),
+				linkTo(methodOn(PreguntaController.class).one(entity.getFamilia().getId())).withRel("familia")
 				);
 		return model;
 	}

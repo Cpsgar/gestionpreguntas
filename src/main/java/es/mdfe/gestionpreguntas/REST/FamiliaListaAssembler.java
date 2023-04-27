@@ -10,32 +10,31 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
+import es.mdfe.gestionpreguntas.REST.models.familias.FamiliaListaModel;
 import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaListaModel;
+import es.mdfe.gestionpreguntas.entidades.Familia;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 
 @Component
-public class PreguntaListaAssembler implements RepresentationModelAssembler<Pregunta, PreguntaListaModel> {
+public class FamiliaListaAssembler implements RepresentationModelAssembler<Familia, FamiliaListaModel> {
 	@Override
-	public PreguntaListaModel toModel(Pregunta entity) {
-		PreguntaListaModel model = new PreguntaListaModel();
+	public FamiliaListaModel toModel(Familia entity) {
+		FamiliaListaModel model = new FamiliaListaModel();
 		model.setEnunciado(entity.getEnunciado());
+		model.setTamano(entity.getTamano());
 		model.add(
-				linkTo(methodOn(PreguntaController.class).one(entity.getId())).withSelfRel(),
-				linkTo(methodOn(UsuarioController.class).one(entity.getUsuario().getId())).withRel("usuario")
+				linkTo(methodOn(PreguntaController.class).one(entity.getId())).withSelfRel()
 				);
 		return model;
 	}
 	
-	public CollectionModel<PreguntaListaModel> toCollection(List<Pregunta> lista) {
-		CollectionModel<PreguntaListaModel> collection = CollectionModel.of(
+	public CollectionModel<FamiliaListaModel> toCollection(List<Familia> lista) {
+		CollectionModel<FamiliaListaModel> collection = CollectionModel.of(
 				lista.stream().map(this::toModel).collect(Collectors.toList())
 				);
 		collection.add(
-				linkTo(methodOn(PreguntaController.class).all()).withRel("preguntas")
+				linkTo(methodOn(FamiliaController.class).all()).withRel("preguntas")
 				);
 		return collection;
 	}
-
-
-
 }
