@@ -20,7 +20,8 @@ public class Pregunta {
 	private Long id;
 	private String enunciado;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "UdsuarioId")
+	@JoinColumn(name = "UsuarioId")
+	private Usuario usuario;
 	public Long getId() {
 		return id;
 	}
@@ -32,6 +33,12 @@ public class Pregunta {
 	}
 	public void setEnunciado(String enunciado) {
 		this.enunciado = enunciado;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	

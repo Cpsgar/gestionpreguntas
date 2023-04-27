@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.mdef.gestionpedidos.REST.ArticuloController;
-import es.mdef.gestionpedidos.REST.PedidoListaModel;
-import es.mdef.gestionpedidos.REST.RegisterNotFoundException;
-import es.mdef.gestionpedidos.entidades.Pedido;
+
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
 import es.mdfe.gestionpreguntas.REST.models.PreguntaListaModel;
 import es.mdfe.gestionpreguntas.REST.models.UsuarioListaModel;
@@ -41,13 +38,16 @@ public class UsuarioController {
 	private final UsuarioAssembler assembler;
 	private final UsuarioListaAssembler listaAssembler;
 	private final Logger log;
+	
+	private final PreguntaListaAssembler preguntaListaAssembler;
 
 	UsuarioController(UsuarioRepositorio repositorio, UsuarioAssembler assembler,
-			UsuarioListaAssembler listaAssembler) {
+			UsuarioListaAssembler listaAssembler, PreguntaListaAssembler preguntaListaAssembler) {
 		this.repositorio = repositorio;
 		this.assembler = assembler;
 		this.listaAssembler = listaAssembler;
 		log = GestionpreguntasApplication.log;
+		this.preguntaListaAssembler = preguntaListaAssembler;
 	}
 
 	@GetMapping("{id}")
@@ -110,11 +110,11 @@ public class UsuarioController {
 	@GetMapping("{id}/preguntas")
 	public CollectionModel<PreguntaListaModel> preguntas(@PathVariable Long id) {
 		List<Pregunta> preguntas = repositorio.findById(id)
-				.orElseThrow(() -> new RegisterNotFoundException(id, "articulo"))
+				.orElseThrow(() -> new RegisterNotFoundException(id, "usuario"))
 				.getPreguntas();
 		return CollectionModel.of(
-				preguntas.stream().map(pedido -> preguntaListaAssembler.toModel(pedido)).collect(Collectors.toList()),
-				linkTo(methodOn(ArticuloController.class).one(id)).slash("pedidos").withSelfRel()
+				preguntas.stream().map(pregunta -> preguntaListaAssembler.toModel(pregunta)).collect(Collectors.toList()),
+				linkTo(methodOn(UsuarioController.class).one(id)).slash("preguntas").withSelfRel()
 				);
 	}
 }

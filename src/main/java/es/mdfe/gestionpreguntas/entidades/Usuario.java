@@ -36,7 +36,7 @@ public class Usuario {
 	private String nombre;
 	private String nombreUsuario;
 	private String contraseña;
-	@OneToMany(mappedBy = "pregunta")
+	@OneToMany(mappedBy = "usuario")
 	List<Pregunta>preguntas;
 	public Long getId() {
 		return id;
@@ -65,6 +65,12 @@ public class Usuario {
 	
 	public Role getRole() {
 		return null;
+	}
+	public List<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+	public void setPreguntas(List<Pregunta> preguntas) {
+		this.preguntas = preguntas;
 	}
 	
 }
