@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.DiscriminatorValue;
@@ -17,6 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="USUARIOS")
@@ -33,11 +35,20 @@ public class Usuario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonIgnore
 	private Long id;
+	
+	@NotBlank(message="nombre es un campo obligatorio de la clase usuario")
 	private String nombre;
+	
+	@NotBlank(message="nombre de usuario es un campo obligatorio de la clase usuario")
+	@Column(unique=true, name = "nombre_usuario")
 	private String nombreUsuario;
+	
+	@NotBlank(message="contrasena es un campo obligatorio de la clase usuario")
 	private String contraseña;
+	
 	@OneToMany(mappedBy = "usuario")
 	List<Pregunta>preguntas;
+	
 	public Long getId() {
 		return id;
 	}

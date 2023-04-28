@@ -4,6 +4,8 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @DiscriminatorValue("N")
@@ -15,8 +17,9 @@ public class NoAdministrador extends Usuario {
 	public static enum Tipo {
 		alumno, docente, administracion
 	}
-
+	@NotNull(message="departamento es un campo obligatorio de la clase usuario no admin")
 	private Departamento departamento;
+	@NotNull(message="tipo es un campo obligatorio de la clase usuario no admin")
 	private Tipo tipo;
 
 	public Departamento getDepartamento() {

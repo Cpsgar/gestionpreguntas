@@ -21,7 +21,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//Validacion
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//seguridad
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//bbdd H2
 	runtimeOnly 'com.h2database:h2'
+	//runtimeOnly 'org.postgresql:postgresql'
+	
+	//necesario para gestionar tokens
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	//necesario para jjwt
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	//añado libreria externa
 	implementation ':support'

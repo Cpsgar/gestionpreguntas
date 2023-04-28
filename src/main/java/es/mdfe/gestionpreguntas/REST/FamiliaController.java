@@ -31,6 +31,7 @@ import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
 import es.mdfe.gestionpreguntas.repositorios.FamiliaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -92,7 +93,7 @@ public class FamiliaController {
 				);
 	}
 	@PostMapping
-	public FamiliaModel add(@RequestBody FamiliaPostModel model) {
+	public FamiliaModel add(@Valid @RequestBody FamiliaPostModel model) {
 		Familia nuevaFamilia = assembler.toEntity(model);
 		Familia familia = repositorio.save(nuevaFamilia);
 		log.info("Añadido " + familia);

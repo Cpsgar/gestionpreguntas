@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PREGUNTAS")
@@ -18,11 +20,15 @@ public class Pregunta {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@JsonIgnore
 	private Long id;
+	@NotBlank(message="enunciado es un campo obligatorio de la clase pregunta")
 	private String enunciado;
+	
+	@NotNull(message="el usuario es obligatorio en la clase pregunta")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "UsuarioId")
 	private Usuario usuario;
 	
+	@NotNull(message="la familia es obligatoria en la clase pregunta")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FamiliaId")
 	private Familia familia;

@@ -18,6 +18,7 @@ import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaModel;
 import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaPostModel;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/preguntas")
@@ -49,7 +50,7 @@ public class PreguntaController {
 
 
 	@PostMapping
-	public PreguntaModel add(@RequestBody PreguntaPostModel model) {
+	public PreguntaModel add(@Valid @RequestBody PreguntaPostModel model) {
 		Pregunta nuevaPregunta = assembler.toEntity(model);
 		Pregunta pregunta = repositorio.save(nuevaPregunta);
 		log.info("Añadido " + pregunta);

@@ -4,10 +4,13 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @DiscriminatorValue("A")
 public class Administrador extends Usuario {
+	
+	@NotBlank(message="telefono es un campo obligatorio de la clase usuario admin")
 	private String telefono;
 
 	public String getTelefono() {

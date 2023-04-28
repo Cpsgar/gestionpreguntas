@@ -23,7 +23,7 @@ public class FamiliaListaAssembler implements RepresentationModelAssembler<Famil
 		model.setEnunciado(entity.getEnunciado());
 		model.setTamano(entity.getTamano());
 		model.add(
-				linkTo(methodOn(PreguntaController.class).one(entity.getId())).withSelfRel()
+				linkTo(methodOn(FamiliaController.class).one(entity.getId())).withSelfRel()
 				);
 		return model;
 	}
@@ -33,7 +33,7 @@ public class FamiliaListaAssembler implements RepresentationModelAssembler<Famil
 				lista.stream().map(this::toModel).collect(Collectors.toList())
 				);
 		collection.add(
-				linkTo(methodOn(FamiliaController.class).all()).withRel("preguntas")
+				linkTo(methodOn(FamiliaController.class).all()).withRel("familias")
 				);
 		return collection;
 	}

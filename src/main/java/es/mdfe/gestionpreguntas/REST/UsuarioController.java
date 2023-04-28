@@ -37,6 +37,7 @@ import es.mdfe.gestionpreguntas.entidades.Usuario;
 import es.mdfe.gestionpreguntas.repositorios.FamiliaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.UsuarioRepositorio;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -79,7 +80,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public UsuarioModel add(@RequestBody UsuarioPostModel model) {
+	public UsuarioModel add(@Valid @RequestBody UsuarioPostModel model) {
 		Usuario nuevoUsuario = assembler.toEntity(model);
 		System.out.println(nuevoUsuario.getRole());
 		Usuario usuario = repositorio.save(nuevoUsuario);

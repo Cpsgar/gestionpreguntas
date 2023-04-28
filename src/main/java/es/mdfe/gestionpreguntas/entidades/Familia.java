@@ -18,11 +18,11 @@ public class Familia extends es.mdef.support.Familia {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	//@JsonIgnore
 	@OneToMany(mappedBy = "familia")
 	private List<Pregunta>preguntas = new ArrayList<>();
-	private long tamano;
-
+	
 	public Long getId() {
 		return id;
 	}
