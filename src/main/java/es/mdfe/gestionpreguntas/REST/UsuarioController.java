@@ -11,8 +11,11 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
 import es.mdfe.gestionpreguntas.REST.models.familias.FamiliaListaModel;
@@ -74,10 +76,6 @@ public class UsuarioController {
 		return listaAssembler.toCollection(repositorio.findAll());
 	}
 
-	@GetMapping("porNombreUsuario")
-	public CollectionModel<UsuarioListaModel> usuariosporNombreUsuario(@RequestParam String nombreUsuario) {
-		return listaAssembler.toCollection(repositorio.findUsuarioByNombreUsuario(nombreUsuario));
-	}
 
 	@PostMapping
 	public UsuarioModel add(@Valid @RequestBody UsuarioPostModel model) {
@@ -106,7 +104,7 @@ public class UsuarioController {
 				}
 			}
 			usr.setNombre(model.getNombre());
-			usr.setNombreUsuario(model.getNombreUsuario());
+			usr.setUsername(model.getUsername());
 			return repositorio.save(usr);
 		}).orElseThrow(() -> new RegisterNotFoundException(id, "usuario"));
 		log.info("Actualizado " + usuario);
@@ -117,6 +115,17 @@ public class UsuarioController {
 	public void delete(@PathVariable Long id) {
 		log.info("Borrado usuario " + id);
 		repositorio.deleteById(id);
+	}
+	
+	@PatchMapping("{id}/cambiarContrasena")
+	public UsuarioModel edit(@PathVariable Long id, @RequestBody String newPassword) {
+		Usuario nuevoUsuario = repositorio.findById(id).map(usr -> {
+			usr.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+			return repositorio.save(usr);
+		})
+		.orElseThrow(() -> new RegisterNotFoundException(id, "empleado"));
+		log.info("Actualizado " + nuevoUsuario);
+		return assembler.toModel(nuevoUsuario);
 	}
 	
 	@GetMapping("{id}/preguntas")

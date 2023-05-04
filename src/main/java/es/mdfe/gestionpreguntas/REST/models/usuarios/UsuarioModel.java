@@ -10,7 +10,7 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 @Relation(itemRelation = "usuario")
 public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 	private String nombre;
-	private String nombreUsuario;
+	private String username;
 	private Role role;
 
 	public String getNombre() {
@@ -21,12 +21,12 @@ public class UsuarioModel extends RepresentationModel<UsuarioModel> {
 		this.nombre = nombre;
 	}
 
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Role getRole() {

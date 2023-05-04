@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
@@ -29,6 +30,7 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 
 	@Override
 	public UsuarioModel toModel(Usuario entity) {
+		entity.setPassword(null);
 		UsuarioModel model;
 		if (entity.getRole() == null) {
 			model = new UsuarioModel();
@@ -55,7 +57,7 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 		}
 
 		model.setNombre(entity.getNombre());
-		model.setNombreUsuario(entity.getNombreUsuario());
+		model.setUsername(entity.getUsername());
 		model.setRole(entity.getRole());
 		model.add(
 				linkTo(methodOn(UsuarioController.class).one(entity.getId())).withSelfRel(),
@@ -91,8 +93,8 @@ public class UsuarioAssembler implements RepresentationModelAssembler<Usuario, U
 			}
 		}
 		usuario.setNombre(model.getNombre());
-		usuario.setNombreUsuario(model.getNombreUsuario());
-		usuario.setContraseña(model.getContraseña());
+		usuario.setUsername(model.getUsername());
+		usuario.setPassword(new BCryptPasswordEncoder().encode(model.getPassword()));
 		return usuario;
 	}
 

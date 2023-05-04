@@ -10,8 +10,8 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 @Relation(itemRelation = "usuario")
 public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 	private String nombre;
-	private String nombreUsuario;
-	private String contraseña;
+	private String username;
+	private String password;
 	private Departamento departamento;
 	private Tipo tipo;
 	private String telefono;
@@ -25,20 +25,20 @@ public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 		this.nombre = nombre;
 	}
 
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Role getRole() {
@@ -73,10 +73,5 @@ public class UsuarioPostModel extends RepresentationModel<UsuarioPostModel> {
 		this.telefono = telefono;
 	}
 
-	@Override
-	public String toString() {
-		return "UsuarioPostModel [nombre=" + nombre + ", nombreUsuario=" + nombreUsuario + ", contraseña=" + contraseña
-				+ ", role=" + role + "]";
-	}
 
 }
