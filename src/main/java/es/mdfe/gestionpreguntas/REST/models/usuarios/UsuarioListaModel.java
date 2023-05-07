@@ -9,7 +9,6 @@ import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 public class UsuarioListaModel extends RepresentationModel<UsuarioListaModel> {
 
 	private String nombre;
-	private String username;
 	private Role role;
 	
 	public String getNombre() {
@@ -18,12 +17,7 @@ public class UsuarioListaModel extends RepresentationModel<UsuarioListaModel> {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+
 	public Role getRole() {
 		return role;
 	}

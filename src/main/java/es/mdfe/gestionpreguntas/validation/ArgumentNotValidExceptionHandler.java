@@ -3,7 +3,6 @@ package es.mdfe.gestionpreguntas.validation;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.mdfe.gestionpreguntas.GestionpreguntasApplication;
@@ -36,7 +34,6 @@ import es.mdfe.gestionpreguntas.entidades.Familia;
 import es.mdfe.gestionpreguntas.entidades.NoAdministrador;
 import es.mdfe.gestionpreguntas.entidades.Pregunta;
 import es.mdfe.gestionpreguntas.entidades.Usuario;
-import es.mdfe.gestionpreguntas.repositorios.FamiliaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.PreguntaRepositorio;
 import es.mdfe.gestionpreguntas.repositorios.UsuarioRepositorio;
 import jakarta.validation.Valid;
@@ -80,7 +77,7 @@ public class UsuarioController {
 	@PostMapping
 	public UsuarioModel add(@Valid @RequestBody UsuarioPostModel model) {
 		Usuario nuevoUsuario = assembler.toEntity(model);
-		System.out.println(nuevoUsuario.getRole());
+		//System.out.println(nuevoUsuario.getRole());
 		Usuario usuario = repositorio.save(nuevoUsuario);
 		log.info("Añadido " + usuario);
 		return assembler.toModel(usuario);

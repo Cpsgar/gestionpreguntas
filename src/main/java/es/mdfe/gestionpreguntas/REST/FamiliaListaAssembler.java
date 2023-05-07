@@ -11,9 +11,7 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 import es.mdfe.gestionpreguntas.REST.models.familias.FamiliaListaModel;
-import es.mdfe.gestionpreguntas.REST.models.preguntas.PreguntaListaModel;
 import es.mdfe.gestionpreguntas.entidades.Familia;
-import es.mdfe.gestionpreguntas.entidades.Pregunta;
 
 @Component
 public class FamiliaListaAssembler implements RepresentationModelAssembler<Familia, FamiliaListaModel> {

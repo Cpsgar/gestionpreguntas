@@ -1,10 +1,7 @@
 package es.mdfe.gestionpreguntas.entidades;
 
-import es.mdfe.gestionpreguntas.entidades.Usuario.Role;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity

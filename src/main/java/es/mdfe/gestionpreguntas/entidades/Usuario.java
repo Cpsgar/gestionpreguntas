@@ -47,11 +47,11 @@ public class Usuario implements UserDetails {
 	@NotBlank(message="nombre es un campo obligatorio de la clase usuario")
 	private String nombre;
 	
-	@NotBlank(message="nombre de usuario es un campo obligatorio de la clase usuario")
+	@NotBlank(message="username es un campo obligatorio de la clase usuario")
 	@Column(unique=true, name = "username")
 	private String username;
 	
-	@NotBlank(message="contrasena es un campo obligatorio de la clase usuario")
+	@NotBlank(message="password es un campo obligatorio de la clase usuario")
 	private String password;
 	
 	@OneToMany(mappedBy = "usuario")
