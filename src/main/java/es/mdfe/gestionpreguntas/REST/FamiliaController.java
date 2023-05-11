@@ -89,7 +89,7 @@ public class FamiliaController {
 				.getPreguntas();
 		return CollectionModel.of(
 				preguntas.stream().map(pregunta -> preguntaListaAssembler.toModel(pregunta)).collect(Collectors.toList()),
-				linkTo(methodOn(UsuarioController.class).one(id)).slash("preguntas").withSelfRel()
+				linkTo(methodOn(FamiliaController.class).preguntas(id)).withRel("preguntas")
 				);
 	}
 	@PostMapping
